@@ -2,7 +2,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { h as hastscript } from "hastscript";
+import * as hastscript from "hastscript";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import autolink from "remark-autolink-headings";
 import remarkEmoji from "remark-emoji";
@@ -42,7 +42,7 @@ const mdPlugins = [
     {
       behavior: "append",
       content() {
-        return [hastscript("span.header-link")];
+        return [hastscript.h("span.header-link")];
       },
     },
   ],
