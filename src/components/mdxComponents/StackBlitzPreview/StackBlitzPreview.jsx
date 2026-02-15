@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import openButton from "../../assets/open-in-stackblitz-button.svg";
+import openButton from "../../../assets/open-in-stackblitz-button.svg";
 
 export default function StackBlitzPreview(props = {}) {
   const {
