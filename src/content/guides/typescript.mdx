@@ -9,6 +9,7 @@ contributors:
   - EugeneHlushko
   - chenxsan
   - snitin315
+  - tusharthakur04
 ---
 
 T> This guide stems from the [_Getting Started_](/guides/getting-started/) guide.
@@ -92,7 +93,46 @@ module.exports = {
 };
 ```
 
-> Configuration can also be written in [Typescript file](https://webpack.js.org/configuration/configuration-languages/#typescript)
+Webpack configuration can also be written in TypeScript.
+
+First, install the required dependencies:
+
+```bash
+npm install --save-dev typescript ts-node @types/node
+```
+
+**webpack.config.ts**
+
+```ts
+import path from "path";
+import webpack from "webpack";
+// in case you run into any TypeScript error when configuring `devServer`
+import "webpack-dev-server";
+
+const config: webpack.Configuration = {
+  entry: "./src/index.ts",
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+};
+
+export default config;
+```
+
+> For further refrence on how to write configuration in [Typescript file](https://webpack.js.org/configuration/configuration-languages/#typescript)
 
 This will direct webpack to _enter_ through `./index.ts`, _load_ all `.ts` and `.tsx` files through the `ts-loader`, and _output_ a `bundle.js` file in our current directory.
 
