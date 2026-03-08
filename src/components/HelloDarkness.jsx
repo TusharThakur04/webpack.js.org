@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useLocalStorage } from "react-use";
 import { THEME_LOCAL_STORAGE_KEY, Theme } from "../constants/theme.mjs";
 import Tooltip from "./Tooltip/Tooltip.jsx";
@@ -8,28 +8,20 @@ const { DARK, LIGHT } = Theme;
 
 export default function HelloDarkness() {
   const [theme, setTheme] = useLocalStorage(THEME_LOCAL_STORAGE_KEY, LIGHT);
-  const [mounted, setMounted] = useState(false);
-
+  const activeTheme = useSyncExternalStore(
+    () => () => {},
+    () => theme,
+    () => LIGHT,
+  );
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     document.documentElement.setAttribute("data-theme", theme);
     if (theme === DARK) {
       document.documentElement.classList.add(DARK);
     } else {
       document.documentElement.classList.remove(DARK);
     }
-  }, [theme, mounted]);
-
+  }, [theme]);
   const themeSwitcher = () => setTheme(theme === DARK ? LIGHT : DARK);
-
-  // Always render LIGHT icon on server to match SSR
-  const activeTheme = mounted ? theme : LIGHT;
-
   return (
     <Tooltip
       content={
