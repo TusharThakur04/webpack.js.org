@@ -43,6 +43,14 @@ describe("OfflineBanner", () => {
     expect(container.firstChild).toBeNull();
   });
 
+  it("renders the offline banner snapshot", () => {
+    const { container } = render(<OfflineBanner />);
+    act(() => {
+      window.dispatchEvent(new Event("offline"));
+    });
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
   it("renders the offline banner when offline", () => {
     const { container } = render(<OfflineBanner />);
     act(() => {
