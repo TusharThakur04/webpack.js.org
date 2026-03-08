@@ -120,9 +120,7 @@ export default function Page(props) {
           </div>
         ) : null}
 
-        <div id="md-content" suppressHydrationWarning>
-          {contentRender}
-        </div>
+        <div id="md-content">{contentRender}</div>
 
         {rest.url === "/blog/" && (
           <div className="blog-list">
