@@ -24,7 +24,7 @@ if (isClient) {
   );
 
   if (isProduction) {
-    hydrateRoot(container, app);
+    hydrateRoot(container, app, { onRecoverableError: () => {} });
   } else {
     const root = createRoot(container);
     root.render(app);

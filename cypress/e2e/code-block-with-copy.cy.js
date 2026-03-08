@@ -64,6 +64,9 @@ describe("CodeBlockWithCopy", () => {
   it("copies non-diff code blocks without altering content", () => {
     visitWithClipboardSpy("/concepts/");
 
+    // Wait for Suspense content to load before querying code blocks
+    cy.get("button.copy-button").should("exist");
+
     // Select the first webpack.config.js example and its copy wrapper.
     getFirstWebpackConfigBlock("standardCodeBlock");
 
