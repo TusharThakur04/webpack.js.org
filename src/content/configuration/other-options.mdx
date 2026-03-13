@@ -167,6 +167,8 @@ T> You can override properties in the loader context as webpack copies all prope
 
 Name of the configuration. Used when loading multiple configurations.
 
+This is especially useful when exporting an array of configurations. webpack uses `name` to identify each config in logs and stats output.
+
 **webpack.config.js**
 
 ```javascript
@@ -176,17 +178,59 @@ export default {
 };
 ```
 
+For multi-configuration builds:
+
+```javascript
+export default [
+  {
+    name: "client",
+    target: "web",
+    // ...
+  },
+  {
+    name: "server",
+    target: "node",
+    // ...
+  },
+];
+```
+
 ## parallelism
 
 `number = 100`
 
 Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results.
 
+Lower values reduce concurrent work and memory pressure, but may increase total build time. Higher values can improve throughput on powerful machines.
+
+**webpack.config.js**
+
+```javascript
+export default {
+  // ...
+  parallelism: 50,
+};
+```
+
+Use cases:
+
+- Reduce `parallelism` when builds hit memory limits (for example in constrained CI runners).
+- Increase it when you have enough CPU and memory and want to maximize build throughput.
+
 ## profile
 
 `boolean`
 
 Capture a "profile" of the application, including statistics and hints, which can then be dissected using the [Analyze](https://webpack.github.io/analyse/) tool. It will also log out a summary of module timings.
+
+**webpack.config.js**
+
+```javascript
+export default {
+  // ...
+  profile: true,
+};
+```
 
 T> Combine `profile: true` with `parallelism: 1` to get correct timings. Note that this will slow down the build as well.
 
@@ -195,6 +239,24 @@ T> Combine `profile: true` with `parallelism: 1` to get correct timings. Note th
 `string`
 
 Specify the file from which to read the last set of records. This can be used to rename a records file. See the example below.
+
+When this option is set, webpack reads previously generated records from this path and uses them as input for stable module/chunk id tracking.
+
+**webpack.config.js**
+
+```javascript
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
+  // ...
+  recordsInputPath: path.join(__dirname, "records.json"),
+  recordsOutputPath: path.join(__dirname, "records-next.json"),
+};
+```
 
 ## recordsOutputPath
 
