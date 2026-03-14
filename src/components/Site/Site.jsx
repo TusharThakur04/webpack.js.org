@@ -164,12 +164,12 @@ function Site(props) {
 
       window.gtag("event", "page_view", {
         // eslint-disable-next-line camelcase
-        page_path: location.pathname + location.search + location.hash,
+        page_path: location.pathname + location.search,
         // eslint-disable-next-line camelcase
         page_title: document.title,
       });
     }
-  }, [location.pathname, location.search, location.hash]);
+  }, [location.pathname, location.search]);
 
   const [mounted, setMounted] = useState(false);
 
