@@ -142,6 +142,7 @@ function Site(props) {
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
       const GA4_ID = "G-KGQCZQ8B8H";
+      const pagePath = location.pathname + location.search;
 
       if (!window.gtag) {
         const script = document.createElement("script");
@@ -156,11 +157,17 @@ function Site(props) {
         };
 
         window.gtag("js", new Date());
+        window.gtag("config", GA4_ID, {
+          // eslint-disable-next-line camelcase
+          send_page_view: false,
+        });
       }
 
-      window.gtag("config", GA4_ID, {
+      window.gtag("event", "page_view", {
         // eslint-disable-next-line camelcase
-        page_path: location.pathname + location.search,
+        page_path: pagePath,
+        // eslint-disable-next-line camelcase
+        page_title: document.title,
       });
     }
   }, [location]);
