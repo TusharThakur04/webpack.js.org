@@ -14,33 +14,30 @@ export default class Dropdown extends Component {
   };
 
   componentDidMount() {
-    this._boundCloseOnEsc = this._closeDropdownOnEsc.bind(this);
-    this._boundCloseLostFocus = this._closeDropdownIfFocusLost.bind(this);
-
-    document.addEventListener("keyup", this._boundCloseOnEsc, true);
-    document.addEventListener("focus", this._boundCloseLostFocus, true);
-    document.addEventListener("click", this._boundCloseLostFocus, true);
+    document.addEventListener("keyup", this._closeDropdownOnEsc, true);
+    document.addEventListener("focus", this._closeDropdownIfFocusLost, true);
+    document.addEventListener("click", this._closeDropdownIfFocusLost, true);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keyup", this._boundCloseOnEsc, true);
-    document.removeEventListener("focus", this._boundCloseLostFocus, true);
-    document.removeEventListener("click", this._boundCloseLostFocus, true);
+    document.removeEventListener("keyup", this._closeDropdownOnEsc, true);
+    document.removeEventListener("focus", this._closeDropdownIfFocusLost, true);
+    document.removeEventListener("click", this._closeDropdownIfFocusLost, true);
   }
 
-  _closeDropdownOnEsc(event) {
+  _closeDropdownOnEsc = (event) => {
     if (event.key === "Escape" && this.state.active) {
       this.setState({ active: false }, () => {
         this.dropdownButton.focus();
       });
     }
-  }
+  };
 
-  _closeDropdownIfFocusLost(event) {
+  _closeDropdownIfFocusLost = (event) => {
     if (this.state.active && !this.dropdown.contains(event.target)) {
       this.setState({ active: false });
     }
-  }
+  };
 
   render() {
     const { className = "", items = [] } = this.props;
@@ -50,15 +47,15 @@ export default class Dropdown extends Component {
       <nav
         className={`dropdown ${className}`}
         ref={(el) => (this.dropdown = el)}
-        onMouseOver={this._toggle.bind(this, true)}
-        onMouseLeave={this._toggle.bind(this, false)}
+        onMouseOver={this._handleMouseOver}
+        onMouseLeave={this._handleMouseLeave}
       >
         <button
           ref={(el) => (this.dropdownButton = el)}
           aria-haspopup="true"
           aria-expanded={String(this.state.active)}
           aria-label="Select language"
-          onClick={this._handleClick.bind(this)}
+          onClick={this._handleClick}
         >
           <svg
             viewBox="0 0 610 560"
@@ -98,11 +95,9 @@ export default class Dropdown extends Component {
             {items.map((item, i) => (
               <li key={item.title}>
                 <a
-                  onKeyDown={this._handleArrowKeys.bind(
-                    this,
-                    i,
-                    items.length - 1,
-                  )}
+                  onKeyDown={(event) =>
+                    this._handleArrowKeys(i, items.length - 1, event)
+                  }
                   ref={(node) =>
                     this.links ? this.links.push(node) : (this.links = [node])
                   }
@@ -119,7 +114,7 @@ export default class Dropdown extends Component {
     );
   }
 
-  _handleArrowKeys(currentIndex, lastIndex, event) {
+  _handleArrowKeys = (currentIndex, lastIndex, event) => {
     if (["ArrowDown", "ArrowUp"].includes(event.key)) {
       event.preventDefault();
     }
@@ -140,24 +135,21 @@ export default class Dropdown extends Component {
     }
 
     this.links[newIndex].focus();
-  }
+  };
 
-  _handleClick() {
+  _handleClick = () => {
     this.setState({ active: !this.state.active }, () => {
       if (this.state.active) {
         this.links[0].focus();
       }
     });
-  }
+  };
 
-  /**
-   * Toggle visibility of dropdown items
-   *
-   * @param {boolean} state - Whether to display or hide the items
-   */
-  _toggle(state = false) {
-    this.setState({
-      active: state,
-    });
-  }
+  _handleMouseOver = () => {
+    this.setState({ active: true });
+  };
+
+  _handleMouseLeave = () => {
+    this.setState({ active: false });
+  };
 }
