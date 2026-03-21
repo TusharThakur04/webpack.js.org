@@ -14,7 +14,7 @@ const Footer = () => (
       <div className="mb-[24px] flex justify-center">
         <a href="https://openjsf.org" target="_blank" rel="noopener noreferrer">
           <img
-            className="h-[40px] w-auto"
+            className="h-[40px] w-auto dark:invert"
             src={OpenJSLogo}
             alt="OpenJS Foundation Logo"
           />
