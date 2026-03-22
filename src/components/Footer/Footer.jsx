@@ -20,7 +20,7 @@ const Footer = () => (
           />
         </a>
       </div>
-      <p className="mx-auto text-[15px] leading-[1.6] text-[#333333]">
+      <p className="mx-auto text-[15px] leading-[1.6] text-[#333333] dark:text-[#cecece]">
         Copyright <a href="https://openjsf.org">OpenJS Foundation</a> and
         webpack contributors. All rights reserved. The{" "}
         <a href="https://openjsf.org">OpenJS Foundation</a> has registered
