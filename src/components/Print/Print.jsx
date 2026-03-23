@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import "./Print.scss";
 import icon from "../../assets/icon-print.svg";
 import BarIcon from "../../styles/icons/vertical-bar.svg";
 
@@ -40,14 +39,14 @@ export default function Print(props) {
         fill="#175d96"
       />
       <a
-        className="sidebar-item__title sidebar-link__print"
+        className="sidebar-item__title flex items-center flex-nowrap"
         href={printUrl}
         rel="nofollow noopener noreferrer"
         title="Print"
         target="_blank"
       >
         Print Section
-        <img src={icon} width={27} height={20} alt="Printer Icon" />
+        <img src={icon} alt="Printer Icon" className="h-[20px] w-[27px]" />
       </a>
     </div>
   );
