@@ -31,22 +31,22 @@ export default function Print(props) {
   }
 
   return (
-    <div className="sidebar-item sidebar-item--disabled">
+    <div className="relative flex flex-wrap text-[15px] my-[0.6em]">
       <BarIcon
-        className="sidebar-item__toggle"
+        className="flex-none mt-[0.125em] mr-2 text-[#aaa] dark:text-[#69a8ee]"
         width={15}
         height={17}
         fill="#175d96"
       />
       <a
-        className="sidebar-item__title flex items-center flex-nowrap"
+        className="flex-1 max-w-[85%] overflow-hidden whitespace-nowrap text-ellipsis flex items-center flex-nowrap text-[#2b3a42] dark:text-[#b8b8b8]"
         href={printUrl}
         rel="nofollow noopener noreferrer"
         title="Print"
         target="_blank"
       >
         Print Section
-        <img src={icon} alt="Printer Icon" className="h-[20px] w-[27px]" />
+        <img src={icon} width={27} height={20} alt="Printer Icon" />
       </a>
     </div>
   );
