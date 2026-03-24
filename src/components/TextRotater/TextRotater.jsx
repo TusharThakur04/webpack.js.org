@@ -1,4 +1,4 @@
-// Import External Dependencies
+import { clsx } from "clsx";
 import PropTypes from "prop-types";
 import { Children, PureComponent, cloneElement } from "react";
 
@@ -20,11 +20,12 @@ export default class TextRotater extends PureComponent {
   state = {
     currentIndex: 0,
     contentHeight: 0,
+    isAnimating: false,
   };
 
   render() {
     const { children, maxWidth } = this.props;
-    const { currentIndex, contentHeight } = this.state;
+    const { currentIndex, contentHeight, isAnimating } = this.state;
     const childrenCount = Children.count(children);
 
     const currentChild = cloneElement(children[currentIndex], {
@@ -48,8 +49,10 @@ export default class TextRotater extends PureComponent {
         "
       >
         <div
-          className="inline-flex flex-col text-left"
-          ref={(trw) => (this.textRotatorWrap = trw)}
+          className={clsx(
+            "inline-flex flex-col text-left",
+            isAnimating && "text-rotater--slide-up",
+          )}
           onTransitionEnd={this._handleTransitionEnd}
           style={{ height: contentHeight, width: maxWidth }}
         >
@@ -63,48 +66,45 @@ export default class TextRotater extends PureComponent {
   componentDidMount() {
     const { delay } = this.props;
 
-    setTimeout(() => {
+    this.heightTimeout = setTimeout(() => {
       this._calculateContentHeight();
     }, 50);
 
-    setTimeout(() => {
-      if (this.textRotatorWrap) {
-        this.textRotatorWrap.classList.add("text-rotater--slide-up");
-      }
+    this.animationTimeout = setTimeout(() => {
+      this.setState({ isAnimating: true });
     }, delay);
 
     window.addEventListener("resize", this._calculateContentHeight);
   }
 
   componentWillUnmount() {
+    clearTimeout(this.heightTimeout);
+    clearTimeout(this.animationTimeout);
+    clearTimeout(this.repeatTimeout);
     window.removeEventListener("resize", this._calculateContentHeight);
   }
 
   _calculateContentHeight = () => {
-    this.setState({
-      contentHeight: this.content.clientHeight,
-    });
+    if (this.content) {
+      this.setState({
+        contentHeight: this.content.clientHeight,
+      });
+    }
   };
 
   _handleTransitionEnd = () => {
     const { children, repeatDelay } = this.props;
 
-    if (this.textRotatorWrap) {
-      this.textRotatorWrap.classList.remove("text-rotater--slide-up");
-
-      this.setState(
-        {
-          currentIndex:
-            (this.state.currentIndex + 1) % Children.count(children),
-        },
-        () => {
-          setTimeout(() => {
-            if (this.textRotatorWrap) {
-              this.textRotatorWrap.classList.add("text-rotater--slide-up");
-            }
-          }, repeatDelay);
-        },
-      );
-    }
+    this.setState(
+      {
+        currentIndex: (this.state.currentIndex + 1) % Children.count(children),
+        isAnimating: false,
+      },
+      () => {
+        this.repeatTimeout = setTimeout(() => {
+          this.setState({ isAnimating: true });
+        }, repeatDelay);
+      },
+    );
   };
 }
