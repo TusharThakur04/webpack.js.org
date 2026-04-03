@@ -370,3 +370,85 @@
     @apply mt-[1.5em];
   }
 }
+
+.dark .markdown h1,
+.dark .markdown h2,
+.dark .markdown h3,
+.dark .markdown h4,
+.dark .markdown h5,
+.dark .markdown h6 {
+  @apply text-[#9ab3c0];
+}
+
+.dark .markdown code,
+.dark .markdown tt {
+  text-shadow: none;
+  @apply bg-[rgba(70,94,105,0.45)];
+}
+
+.dark .markdown blockquote {
+  @apply border-l-[#343434] text-[#a3a3a3];
+}
+
+.dark .markdown blockquote.tip {
+  @apply bg-[#192429] text-[#7da2b4];
+}
+
+.dark .markdown blockquote.warning {
+  @apply bg-[#27220a] text-[#a49d83];
+}
+
+.dark .markdown blockquote.todo {
+  @apply bg-[#402b1f] text-[#998478];
+}
+
+.dark .markdown hr {
+  @apply bg-[#343434];
+}
+
+.dark .markdown th {
+  @apply bg-[#121212] border-[#252525];
+}
+
+.dark .markdown tr,
+.dark .markdown tr:last-child {
+  @apply border-[#252525];
+}
+
+.dark .markdown tr:nth-child(2n) {
+  @apply bg-[#202020];
+}
+
+.dark .markdown td {
+  @apply border-[#252525];
+}
+
+.dark .markdown pre {
+  @apply bg-[#131b1f];
+}
+
+.dark .markdown pre code {
+  @apply bg-transparent;
+}
+
+.dark .markdown a code {
+  @apply text-[#69a8ee];
+}
+
+.dark .markdown a code:hover {
+  @apply text-[#82b7f6];
+}
+
+.dark .markdown aside.tip,
+.dark .markdown aside.warning,
+.dark .markdown aside.preview,
+.dark .markdown aside.todo {
+  @apply bg-[#222222] text-white;
+}
+
+.dark .markdown aside.tip > .tip__prefix,
+.dark .markdown aside.warning > .warning__prefix,
+.dark .markdown aside.preview > .preview__prefix,
+.dark .markdown aside.todo > .todo__prefix {
+  @apply text-white;
+}
