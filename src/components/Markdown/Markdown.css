@@ -296,13 +296,15 @@
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
   }
 
-  a code {
-    @apply text-brand-link;
-  }
   a {
-    text-decoration: underline;
+    @apply text-brand-link;
+    text-decoration: no underline;
     text-underline-offset: 2px;
     text-decoration-thickness: 1px;
+  }
+
+  a:hover {
+    @apply text-brand-link-hover;
   }
   pre {
     @apply bg-code-pre-bg text-code-pre-text p-4 pr-14 rounded-[3px] text-sm leading-normal overflow-auto;
@@ -432,11 +434,11 @@
   @apply bg-transparent;
 }
 
-.dark .markdown a code {
+.dark .markdown a {
   @apply text-dark-link;
 }
 
-.dark .markdown a code:hover {
+.dark .markdown a:hover {
   @apply text-dark-link-hover;
 }
 
