@@ -377,54 +377,54 @@
 .dark .markdown h4,
 .dark .markdown h5,
 .dark .markdown h6 {
-  @apply text-[#9ab3c0];
+  @apply text-dark-heading;
 }
 
 .dark .markdown code,
 .dark .markdown tt {
   text-shadow: none;
-  @apply bg-[rgba(70,94,105,0.45)];
+  @apply bg-dark-code-inline-bg;
 }
 
 .dark .markdown blockquote {
-  @apply border-l-[#343434] text-[#a3a3a3];
+  @apply border-l-dark-section-border text-dark-muted;
 }
 
 .dark .markdown blockquote.tip {
-  @apply bg-[#192429] text-[#7da2b4];
+  @apply bg-dark-aside-tip-bg text-dark-aside-tip-text;
 }
 
 .dark .markdown blockquote.warning {
-  @apply bg-[#27220a] text-[#a49d83];
+  @apply bg-dark-aside-warning-bg text-dark-aside-warning-text;
 }
 
 .dark .markdown blockquote.todo {
-  @apply bg-[#402b1f] text-[#998478];
+  @apply bg-dark-aside-todo-bg text-dark-aside-todo-text;
 }
 
 .dark .markdown hr {
-  @apply bg-[#343434];
+  @apply bg-dark-section-border;
 }
 
 .dark .markdown th {
-  @apply bg-[#121212] border-[#252525];
+  @apply bg-dark-bg border-dark-border;
 }
 
 .dark .markdown tr,
 .dark .markdown tr:last-child {
-  @apply border-[#252525];
+  @apply border-dark-border;
 }
 
 .dark .markdown tr:nth-child(2n) {
-  @apply bg-[#202020];
+  @apply bg-dark-surface;
 }
 
 .dark .markdown td {
-  @apply border-[#252525];
+  @apply border-dark-border;
 }
 
 .dark .markdown pre {
-  @apply bg-[#131b1f];
+  @apply bg-dark-code-bg;
 }
 
 .dark .markdown pre code {
@@ -432,18 +432,18 @@
 }
 
 .dark .markdown a code {
-  @apply text-[#69a8ee];
+  @apply text-dark-link;
 }
 
 .dark .markdown a code:hover {
-  @apply text-[#82b7f6];
+  @apply text-dark-link-hover;
 }
 
 .dark .markdown aside.tip,
 .dark .markdown aside.warning,
 .dark .markdown aside.preview,
 .dark .markdown aside.todo {
-  @apply bg-[#222222] text-white;
+  @apply bg-dark-surface-2 text-white;
 }
 
 .dark .markdown aside.tip > .tip__prefix,
