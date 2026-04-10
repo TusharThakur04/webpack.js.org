@@ -42,16 +42,3 @@
     @apply text-white;
   }
 }
-
-@layer base {
-  [data-theme="dark"] a,
-  [data-theme="dark"] button.as-link {
-    @apply text-dark-link;
-  }
-}
-
-@layer base {
-  [data-theme="dark"] a:hover {
-    @apply text-dark-link-hover;
-  }
-}
